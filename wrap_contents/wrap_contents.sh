@@ -2,7 +2,7 @@
 
 cd wrap_contents.sh || exit 1
 
-gcc -o wrap_contents wrap_contents.c
+gcc -o wrap_contents wrap_contents.sh
 
 # Assign arguments to variables
 contents_file=$1
