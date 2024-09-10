@@ -1,26 +1,39 @@
 #!/bin/bash
 
-# Get the arguments
+# Check if the correct number of arguments is provided
+if [ "$#" -ne 3 ]; then
+  echo "Usage: $0 <contents_file> <specifier> <output_file>"
+  exit 1
+fi
+
+# Assign arguments to variables
 contents_file=$1
 specifier=$2
 output_file=$3
 
-# Construct the header and footer file names
+# Construct header and footer filenames
 header_file="${specifier}_header.html"
 footer_file="${specifier}_footer.html"
 
-# Check if the header and footer files exist
+# Check if the contents, header, and footer files exist
+if [ ! -f "$contents_file" ]; then
+  echo "Contents file '$contents_file' not found!"
+  exit 1
+fi
+
 if [ ! -f "$header_file" ]; then
-    echo "Header file $header_file does not exist."
-    exit 1
+  echo "Header file '$header_file' not found!"
+  exit 1
 fi
 
 if [ ! -f "$footer_file" ]; then
-    echo "Footer file $footer_file does not exist."
-    exit 1
+  echo "Footer file '$footer_file' not found!"
+  exit 1
 fi
 
-# Concatenate the header, contents, and footer into the output file
-cat "$header_file" "$contents_file" "$footer_file" > "$output_file"
-
-echo "Wrapped contents created in $output_file"
+# Combine the header, contents, and footer into the output file
+{
+  cat "$header_file"
+  cat "$contents_file"
+  cat "$footer_file"
+} > "$output_file"
