@@ -1,10 +1,8 @@
 #!/bin/bash
 
-# Check if the correct number of arguments is provided
-if [ "$#" -ne 3 ]; then
-  echo "Usage: $0 <contents_file> <specifier> <output_file>"
-  exit 1
-fi
+cd wrap_contents.sh || exit 1
+
+gcc -o wrap_contents wrap_contents.c
 
 # Assign arguments to variables
 contents_file=$1
